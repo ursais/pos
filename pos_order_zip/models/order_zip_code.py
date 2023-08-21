@@ -66,3 +66,7 @@ class OrderZipcode(models.Model):
                 logging.error("\n\nwhile end---%s\n\n\n\n" % i)
         except Exception as e:
             logger.error(e)
+
+    def get_zipcode_for_pos(self):
+        zipcodes = self.sudo().search()
+        return zipcodes.mapped("name")

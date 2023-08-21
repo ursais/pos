@@ -1,8 +1,9 @@
 <templates id="template" xml:space="preserve">
 
     <t t-name="EnterZipCodeButton" owl="1">
-        <div class="control-button js_enter_zipcode">
-            Zip Code
-        </div>
+        <span class="control-button " t-on-click="onClick">
+            <span>Zip Code</span>
+        </span>
     </t>
+
 </templates>

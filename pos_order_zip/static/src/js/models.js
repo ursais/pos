@@ -64,12 +64,6 @@ odoo.define('pos_order_zip.models', function (require) {
                         }
                         if (model.model === 'product.product') {
                             params.method = 'load_product_to_pos';
-//                            if (self.config.module_pos_type === 'membership') {
-//                                domain.push(["recurring_invoice","=",true]);
-//                            }
-//                            if (self.config.module_pos_type === 'ticket') {
-//                                domain.push(["is_ticket","=",true]);
-//                            }
                             if (self.config.domain) {
                                 var product_domains = JSON.parse(self.config.domain);
                                 _.each(product_domains, function(product_domain) {

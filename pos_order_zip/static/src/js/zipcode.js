@@ -9,8 +9,8 @@ odoo.define('pos_order_zip.enter_zipcode', function(require){
     class EnterZipCodeButton extends PosComponent{
         async onClick() {
             var self = this;
-            this.showPopup('ErrorPopup', {
-                'title': _t('Enter Zip Code !'),
+            this.showPopup('TextInputPopup', {
+                'title': 'Enter Zip Code !',
                 'confirm': self.get_zip_code,
                 'value': self.pos.get_order().zip_code,
             });
@@ -31,12 +31,12 @@ odoo.define('pos_order_zip.enter_zipcode', function(require){
                             selectedOrder.trigger('change',selectedOrder);
                         } else {
                             if (zip_code.length > 10) {
-                                self.gui.show_popup('error', {
+                                self.showPopup('error', {
                                     'title':_t('Zip Code Is Invalid !'),
                                     'body': _t('Zip Must Be Nine Digit.'),
                                 });
                             } else {
-                                self.gui.show_popup('confirm',{
+                                self.showPopup('confirm',{
                                     'title': _t('Zipcode Not Verified!'),
                                     'body':  _t('Are You Sure You Want To Set This Zip Code?'),
                                     confirm: function(){
@@ -48,7 +48,7 @@ odoo.define('pos_order_zip.enter_zipcode', function(require){
                             }
                         }
                     }, function( type, err ){
-                        self.gui.show_popup('confirm', {
+                        self.showPopup('confirm', {
                             'title': _t('Network Problem:'),
                             'body': _t('Your Internet Connection Is Probably Down. Zip Code Not Verfied. Are You Sure You Want To Set This Zip Code?'),
                             confirm: function(){
