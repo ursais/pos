@@ -49,12 +49,12 @@ odoo.define('pos_order_zip.screen', function (require) {
                 var zipcode = self.pos.get_order().zip_code;
                 if (!zipcode) {
                     if (self.pos.config.is_zipcode_required) {
-                        self.gui.show_screen('products');
+                        self.showScreen('products');
                     }
                 }
                 if (self.pos.config.module_pos_type === 'ticket') {
                     if (self.pos.config.is_zipcode_required) {
-                        self.gui.show_popup('textinput',{
+                        self.showPopup('textinput',{
                             'title': _t('Please Verify Zip code'),
                             'confirm': self.set_zip_code,
                             'value': order.zip_code || order_client && order_client.zip,
@@ -66,7 +66,7 @@ odoo.define('pos_order_zip.screen', function (require) {
                         return o_line.product && o_line.product.product_type === 'alcohol';
                     });
                     if(alcohol_product) {
-                        self.gui.show_popup('confirm',{
+                        self.showPopup('confirm',{
                             'title': _t('Alcohol Product'),
                             'body':  _t('This transaction contains items only for ages 21 and over. Please Check ID.'),
                             confirm: function(){
@@ -93,42 +93,42 @@ odoo.define('pos_order_zip.screen', function (require) {
                             var selectedOrder = self.pos.get_order();
                             selectedOrder.zip_code = zip_code;
                             selectedOrder.trigger('change',selectedOrder);
-                            self.gui.show_screen('payment');
+                            self.showScreen('payment');
                         } else {
                             if (zip_code.length > 10) {
-                                self.gui.show_popup('error', {
+                                self.showPopup('error', {
                                     'title':_t('Zip Code Is Invalid !'),
                                     'body': _t('Zip Code Must Be Nine Digit.'),
                                 });
                             } else {
-                                self.gui.show_popup('confirm',{
+                                self.showPopup('confirm',{
                                     'title': _t('Zipcode Not Verified !'),
                                     'body':  _t('Are You Sure You Want To Set This Zip Code?'),
                                     confirm: function(){
                                         var selectedOrder = self.pos.get_order();
                                         selectedOrder.zip_code = zip_code;
                                         selectedOrder.trigger('change',selectedOrder);
-                                        self.gui.show_screen('payment');
+                                        self.showScreen('payment');
                                     }
                                 })
                             }
                         }
                     }, function( type, err ){
-                        self.gui.show_popup('confirm', {
+                        self.showPopup('confirm', {
                             'title': _t('Network Problem:'),
                             'body': _t('Your Internet Connection Is Probably Down. Zip Code Not Verfied. Are You Sure You Want To Set This Zip Code?'),
                             confirm: function(){
                                 var selectedOrder = self.pos.get_order();
                                 selectedOrder.zip_code = zip_code;
                                 selectedOrder.trigger('change',selectedOrder);
-                                self.gui.show_screen('payment');
+                                self.showScreen('payment');
                             }
                         });
                     })
             }
             else {
                 self.pos.get_order().zip_code = '';
-                self.gui.show_screen('products');
+                self.showScreen('products');
             }
         }
     });
