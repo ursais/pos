@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
 
     <record id="pos_config_view_form_inherit_mebership_pos" model="ir.ui.view">
@@ -9,7 +9,7 @@
             <xpath expr="//sheet/div[@id='title']" position="after">
                 <group>
                     <group>
-                        <field name="is_zipcode_required"/>
+                        <field name="is_zipcode_required" />
                     </group>
                 </group>
             </xpath>

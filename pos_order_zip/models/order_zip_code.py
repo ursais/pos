@@ -37,8 +37,7 @@ class OrderZipcode(models.Model):
         valid_zip_code = self.search([("zip_code", "=", zipcode[:5])])
         if valid_zip_code:
             return True
-        else:
-            return False
+        return False
 
     @api.constrains("zip_code")
     def check_zip_code(self):
@@ -52,7 +51,6 @@ class OrderZipcode(models.Model):
 
     def test_time(self):
         import logging
-        from datetime import datetime
         import time
 
         i = 0
