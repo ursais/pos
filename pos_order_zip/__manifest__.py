@@ -5,6 +5,7 @@
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/pos",
     "depends": ["point_of_sale"],
+    "license": "AGPL-3",
     "data": [
         "security/ir.model.access.csv",
         "views/pos_config_views.xml",
@@ -13,10 +14,9 @@
     ],
     "assets": {
         "point_of_sale.assets": [
-            "/pos_order_zip/static/src/js/EnterZipCodeButton.js",
-            # '/pos_order_zip/static/src/js/screen.js',
-            # '/pos_order_zip/static/src/js/models.js',
-            # '/pos_order_zip/static/src/js/zipcode.js',
+            "/pos_order_zip/static/src/js/ZipCodeScreen.ems.js",
+            "/pos_order_zip/static/src/js/ProductScreen.ems.js",
+            "/pos_order_zip/static/src/js/models.ems.js",
             "/pos_order_zip/static/src/xml/pos_templates.xml",
         ],
     },

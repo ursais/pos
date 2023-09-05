@@ -1,16 +1,21 @@
-from odoo import api, fields, models
+import logging
+
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class OrderZipcode(models.Model):
     _name = "order.zipcode"
     _rec_name = "zip_code"
 
-    zip_code = fields.Char(string="Zip Code")
+    zip_code = fields.Char()
     state_id = fields.Many2one("res.country.state", string="State", ondelete="restrict")
     country_id = fields.Many2one("res.country", string="Country", ondelete="restrict")
-    order_count = fields.Integer(string="Order Count", compute="compute_order_count")
-    city = fields.Char(string="City")
-    county = fields.Char(string="County")
+    order_count = fields.Integer(compute="_compute_order_count")
+    city = fields.Char()
+    county = fields.Char()
 
     @api.onchange("state_id")
     def change_country_id(self):
@@ -21,7 +26,7 @@ class OrderZipcode(models.Model):
                 )
 
     # compute the number of pos orders with a zip code
-    def compute_order_count(self):
+    def _compute_order_count(self):
         for zip_code in self:
             order_count = self.env["pos.order"].search_count(
                 [
@@ -45,25 +50,22 @@ class OrderZipcode(models.Model):
             if self.search(
                 [("zip_code", "=", zip_code.zip_code), ("id", "!=", zip_code.id)]
             ):
-                raise Warning(
-                    "Warning", "Another record with the same zip code already exists!"
+                raise ValidationError(
+                    _("Another record with the same zip code already exists!")
                 )
 
     def test_time(self):
-        import logging
         import time
 
         i = 0
         try:
             while True:
-                logging.error("\n\n\n\n\nwhile start---%s\n\n\n\n" % i)
-                logging.error(time.ctime())
+                _logger.error(time.ctime())
                 time.sleep(60)
                 i += 1
-                logging.error(time.ctime())
-                logging.error("\n\nwhile end---%s\n\n\n\n" % i)
+                _logger.error(time.ctime())
         except Exception as e:
-            logger.error(e)
+            _logger.error(e)
 
     def get_zipcode_for_pos(self):
         zipcodes = self.sudo().search()
