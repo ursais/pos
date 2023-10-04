@@ -16,7 +16,9 @@ odoo.define("pos_order_zip.ZipCodeScreen", function (require) {
                     "TextInputPopup",
                     {
                         title: this.env._t("Enter Zip Code!"),
-                        startingValue: selectedOrder.partner && selectedOrder.partner.zip || selectedOrder.get_zipcode(),
+                        startingValue:
+                            (selectedOrder.partner && selectedOrder.partner.zip) ||
+                            selectedOrder.get_zipcode(),
                     }
                 );
 
