@@ -10,12 +10,13 @@ odoo.define("pos_order_zip.ZipCodeScreen", function (require) {
         async onClick() {
             let self = this;
             const selectedOrder = this.env.pos.get_order();
+
             if (this.env.pos.config.is_zipcode_required) {
                 const {confirmed, payload: zipCode} = await this.showPopup(
                     "TextInputPopup",
                     {
                         title: this.env._t("Enter Zip Code!"),
-                        startingValue: selectedOrder.get_zipcode(),
+                        startingValue: selectedOrder.partner && selectedOrder.partner.zip || selectedOrder.get_zipcode(),
                     }
                 );
 
