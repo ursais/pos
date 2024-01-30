@@ -7,10 +7,10 @@ odoo.define("pos_order_zip.ProductScreen", function (require) {
     const PosZipCodeProductScreen = (ProductScreen) =>
         class extends ProductScreen {
             async _onClickPay() {
-                const selectedOrder = this.env.pos.get_order();
+                const amount_total = this.env.pos.get_order().get_total_with_tax();
                 if (
                     this.env.pos.config.is_zipcode_required &&
-                    !selectedOrder.get_zipcode()
+                    amount_total >= 0
                 ) {
                     const {confirmed, payload: zipCode} = await this.showPopup(
                         "TextInputPopup",
