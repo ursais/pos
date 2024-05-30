@@ -22,20 +22,22 @@ odoo.define("pos_order_zip.ProductScreen", function (require) {
                     if (!confirmed) {
                         return false;
                     } else {
+                        let zip = zipCode
+                        if (zip.length > 5) zip = zip.slice(0, 5)
                         const isCodeMatch = this.env.pos.zipcodes.filter(
-                            (z) => z.zip_code === zipCode
+                            (z) => z.zip_code === zip
                         );
                         const selectedOrder = this.env.pos.get_order();
                         if (isCodeMatch.length) {
-                            selectedOrder.set_zipcode(zipCode);
+                            selectedOrder.set_zipcode(zip);
                         } else {
-                            if (!zipCode) {
+                            if (!zip) {
                                 return this.showPopup("ErrorPopup", {
                                     title: this.env._t("Zip Code Is Required!"),
                                     body: this.env._t("Please enter the zip code."),
                                 });
                             }
-                            if (zipCode.length > 10) {
+                            if (zip.length > 10) {
                                 return this.showPopup("ErrorPopup", {
                                     title: this.env._t("Zip Code Is Invalid !"),
                                     body: this.env._t("Zip Must Be Nine Digit."),
@@ -53,7 +55,7 @@ odoo.define("pos_order_zip.ProductScreen", function (require) {
                                 if (!confirmed) {
                                     return false;
                                 }
-                                selectedOrder.set_zipcode(zipCode);
+                                selectedOrder.set_zipcode(zip);
                             }
                         }
                     }
